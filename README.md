@@ -37,11 +37,7 @@ S::V()->var = 'Master Singleton Class';
 **Use original class or alias or switch back and forth**  
 ```php
 echo Singleton::Template()->fetch(__dir__ .'/gui/layout.php');
-```
-
-**or as alias**    
-```php
-echo S::V()->fetch(__dir__ .'/gui/layout.php');
+echo S::V()->fetch(__dir__ .'/gui/otherlayout.php');
 ```
 
 **See all the registered classes**   
