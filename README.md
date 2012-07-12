@@ -11,6 +11,6 @@ Version 0.0.1 _Added the Master Singleton Class_
 
 -----------------------------------------
 
-**Documentation**
+**Documentation**  
 [Master Singleton Class](https://github.com/robotamer/Facade/wiki/Master-Singleton-Class)  
 [(MIT) License](https://github.com/robotamer/Facade/wiki/License)  
