@@ -42,11 +42,13 @@ echo S::V()->fetch(__dir__ .'/gui/otherlayout.php');
 
 **See all the registered classes**   
 ```php
-print_r(S::getClasses(), true);
+print_r(S::getClasses());
 ```
 
+------------------------------------------------------------------
+
 Copyright
-#########
+=========
 
 The MIT License (MIT)
 ---------------------
