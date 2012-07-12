@@ -10,37 +10,36 @@ RoboTamer Master Singleton PHP Class
 Usage
 -----
 
-**Via the factory**
+**Via the factory**  
     <?php
     $l = Singleton::factory('Translate');
 
-**Directs call**
+**Directs call**  
     <?php
     $view = Singleton::Template();
 
-**Class Alias**
+**Class Alias**  
     <?php
     Singleton::alias('Template', 'V');
 
-**Aliased call** _Singleton has an S alias by default_
+**Aliased call** _Singleton has an S alias by default_  
     <?php
     $view = S::V();
 
 
-**No need for global variables**
+**No need for global variables**  
     <?php
     S::V()->var = 'Master Singleton Class';
 
-**Use original class or alias or switch back and forth**
+**Use original class or alias or switch back and forth**  
     <?php
     echo Singleton::Template()->fetch(__dir__ .'/gui/layout.php');
 
-**or as alias**
-  
+**or as alias**    
     <?php
     echo S::V()->fetch(__dir__ .'/gui/layout.php');
 
-** See all the registered classes 
+** See all the registered classes   
     <?php
     print_r(S::getClasses(), true);
 
