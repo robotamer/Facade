@@ -1,9 +1,8 @@
 <?php
 /**
  * The RoboTamer Master Singleton PHP Class
- */
-
-/**
+ * 
+ * 
  * The MIT License (MIT)
  * 
  * Copyright © 2012 RoboTamer http://robotamer.github.com
@@ -32,23 +31,14 @@
  *
  * One singleton to call and store any class as singleton
  *
+ * @category   Facade
  * @package    RoboTaMeR
  * @author     Dennis T Kaplan
  * @copyright  Copyright (c) 2008 - 2010, Dennis T Kaplan
  * @license    http://robotamer.github.com
  * @link       http://robotamer.github.com
- *
- * <code>
- * $l = Singleton::factory('Translate');
- * $v = S::Template();
- * S::Template()->title = 'My Singleton claas';
- * 
- * print_r(Singleton::getClasses());
- * </code>
- *
  */
 class_alias ('Singleton', 'S');
-
 class Singleton {
 
     protected static $instances = array ();
