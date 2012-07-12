@@ -4,6 +4,9 @@ RoboTamer Facade
 RoboTamer Facade is a component dependency substitution system to achieve component independentcy via the facade programming pattern.
 
 
+Taged Version 0.0.1  
+
+
 RoboTamer Master Singleton Class
 --------------------------------
 
