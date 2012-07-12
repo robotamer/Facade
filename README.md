@@ -4,11 +4,11 @@ RoboTamer Facade
 RoboTamer Facade is a component dependency substitution system to achieve component independentcy via the facade programming pattern.
 
 
-RoboTamer Master Singleton PHP Class
-====================================
+RoboTamer Master Singleton Class
+--------------------------------
 
-Usage
------
+#### Usage
+
 
 **Via the factory**  
     <?php
