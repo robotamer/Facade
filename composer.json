@@ -1,12 +1,13 @@
 {
-    "name": "RoboTamer/Facade",
+    "name": "robotamer/facade",
     "type": "library",
     "description": "RoboTamer Facade is a component dependency substitution system to achieve component independentcy via the facade programming pattern.",
     "keywords": [
         "facade",
         "component",
+	"singleton",
         "independentcy",
-		"dependency"
+	"dependency"
     ],
     "homepage": "http://github.com/robotamer/Facade",
     "version": "0.0.1",
