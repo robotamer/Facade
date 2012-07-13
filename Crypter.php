@@ -1,4 +1,5 @@
 <?php
+
 /**
  * The RoboTamer Crypter PHP Class
  * 
@@ -25,7 +26,9 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
  * THE SOFTWARE. 
  */
-namespace RoboTamer\Facade\Crypter;
+
+namespace RoboTamer\Facade;
+
 /**
  * The RoboTamer Crypter PHP Class
  *
@@ -44,121 +47,122 @@ namespace RoboTamer\Facade\Crypter;
  */
 class Crypter {
 
-    const characters = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    private $charArray = NULL;
-    private $scramble = NULL;
+	const characters = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	private $charArray = NULL;
+	private $scramble = NULL;
 
-    public function __construct () {
-	$this->setCharArray ();
-    }
-
-    public function __destruct () {
-	
-    }
-
-    public function getCharacters () {
-	return self::characters;
-    }
-
-    public function getCharArray () {
-	return implode ($this->charArray);
-    }
-
-    public function getScramble () {
-	return implode ($this->scramble);
-    }
-
-    /**
-     * Set the characters you like to replace
-     *
-     * @access  private
-     * @param   string $str
-     */
-    private function setCharArray () {
-	$this->charArray = str_split (self::characters);
-    }
-
-    /**
-     * This is your private key.
-     * You can generate a random private key based on scramble1 via
-     * the randomizeString($scramble1) function.
-     *
-     * @access  public
-     * @param   string $str
-     * @return  bool TRUE
-     */
-    public function setScramble ($str=NULL) {
-	if ($str === NULL) {
-	    trigger_error ('No key, use genKey($str)', E_USER_ERROR);
-	    die;
+	public function __construct () {
+		$this->setCharArray ();
 	}
-	$this->scramble = str_split ($str);
-	return TRUE;
-    }
 
-    /**
-     * This will encrypt your data
-     *
-     * @access  public
-     * @param   string $str
-     * @return  string encrypt data
-     */
-    public function en ($str) {
-	if ($this->scramble === NULL)
-	    $this->setScramble ();
-	$str = base64_encode ($str);
-	$len = strlen ($str);
-	$newstr = '';
-	for ($i = 0; $i < $len; $i++) {
-	    $r = substr ($str, -1);
-	    $str = substr ($str, 0, -1);
-	    $an = array_search ($r, $this->charArray);
-	    if ($an !== FALSE) {
-		$newstr .= $this->scramble[$an];
-	    } else {
-		$newstr .= $r;
-	    }
+	public function __destruct () {
+		
 	}
-	return $newstr;
-    }
 
-    /**
-     * This will decrypt a Crypted string back to the original data
-     *
-     * @access  public
-     * @param   string $str
-     * @return  string
-     */
-    public function de ($str) {
-	if ($this->scramble === NULL)
-	    $this->setScramble ();
-	$len = strlen ($str);
-	$newstr = '';
-	for ($i = 0; $i < $len; $i++) {
-	    $r = substr ($str, -1);
-	    $str = substr ($str, 0, -1);
-	    $an = array_search ($r, $this->scramble);
-	    if ($an !== FALSE) {
-		$newstr .= $this->charArray[$an];
-	    } else {
-		$newstr .= $r;
-	    }
+	public function getCharacters () {
+		return self::characters;
 	}
-	$str = base64_decode ($newstr);
-	return $str;
-    }
 
-    /**
-     * Generates your private key.
-     * You would use it to set scramble2
-     * Keep it save!
-     *
-     * @access  public
-     * @return  string
-     */
-    public function genKey () {
-	return str_shuffle (self::characters);
-    }
+	public function getCharArray () {
+		return implode ($this->charArray);
+	}
+
+	public function getScramble () {
+		return implode ($this->scramble);
+	}
+
+	/**
+	 * Set the characters you like to replace
+	 *
+	 * @access  private
+	 * @param   string $str
+	 */
+	private function setCharArray () {
+		$this->charArray = str_split (self::characters);
+	}
+
+	/**
+	 * This is your private key.
+	 * You can generate a random private key based on scramble1 via
+	 * the randomizeString($scramble1) function.
+	 *
+	 * @access  public
+	 * @param   string $str
+	 * @return  bool TRUE
+	 */
+	public function setScramble ($str=NULL) {
+		if ($str === NULL) {
+			trigger_error ('No key, use genKey($str)', E_USER_ERROR);
+			die;
+		}
+		$this->scramble = str_split ($str);
+		return TRUE;
+	}
+
+	/**
+	 * This will encrypt your data
+	 *
+	 * @access  public
+	 * @param   string $str
+	 * @return  string encrypt data
+	 */
+	public function en ($str) {
+		if ($this->scramble === NULL)
+			$this->setScramble ();
+		$str = base64_encode ($str);
+		$len = strlen ($str);
+		$newstr = '';
+		for ($i = 0; $i < $len; $i++) {
+			$r = substr ($str, -1);
+			$str = substr ($str, 0, -1);
+			$an = array_search ($r, $this->charArray);
+			if ($an !== FALSE) {
+				$newstr .= $this->scramble[$an];
+			} else {
+				$newstr .= $r;
+			}
+		}
+		return $newstr;
+	}
+
+	/**
+	 * This will decrypt a Crypted string back to the original data
+	 *
+	 * @access  public
+	 * @param   string $str
+	 * @return  string
+	 */
+	public function de ($str) {
+		if ($this->scramble === NULL)
+			$this->setScramble ();
+		$len = strlen ($str);
+		$newstr = '';
+		for ($i = 0; $i < $len; $i++) {
+			$r = substr ($str, -1);
+			$str = substr ($str, 0, -1);
+			$an = array_search ($r, $this->scramble);
+			if ($an !== FALSE) {
+				$newstr .= $this->charArray[$an];
+			} else {
+				$newstr .= $r;
+			}
+		}
+		$str = base64_decode ($newstr);
+		return $str;
+	}
+
+	/**
+	 * Generates your private key.
+	 * You would use it to set scramble2
+	 * Keep it save!
+	 *
+	 * @access  public
+	 * @param	int $no  Security leval 
+	 * @return  string
+	 */
+	public function genKey () {
+		return str_shuffle (self::characters);
+	}
 
 }
 

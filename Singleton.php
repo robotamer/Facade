@@ -25,124 +25,126 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
  * THE SOFTWARE. 
  */
-//namespace RoboTamer\Facade\Singleton;
+
+//namespace RoboTamer;
+
 /**
  * The RoboTamer Master Singleton PHP Class
  *
  * One singleton to call and store any class as singleton
  *
- * @category   Facade
+ * @category   Singleton
  * @package    RoboTaMeR
  * @author     Dennis T Kaplan
- * @copyright  Copyright (c) 2008 - 2010, Dennis T Kaplan
+ * @copyright  Copyright (c) 2008 - 2012, Dennis T Kaplan
  * @license    http://robotamer.github.com
  * @link       http://robotamer.github.com
  */
-class_alias ('Singleton', 'S');
+//class_alias ('Singleton', 'S');
 class Singleton {
 
-    protected static $instances = array ();
+	protected static $instances = array ();
 
-    protected function __construct () {
-	
-    }
-
-    protected static function init () {
-
-	if (!array_key_exists ('Singleton', self::$instances)) {
-	    
-	    self::$instances['Singleton'] = new Singleton();
-	}
-    }
-
-    public static function factory ($class = NULL, $arguments = array ()) {
-
-	self::init ();
-
-	if (!array_key_exists ($class, self::$instances) && $class !== NULL) {
-	    self::$instances[$class] = new $class (implode (', ', $arguments));
+	protected function __construct () {
+		
 	}
 
-	return self::$instances[$class];
-    }
+	protected static function init () {
 
-    public static function alias($class,$alias) {
-	
-	if ( ! array_key_exists ($class, self::$instances)){
-	    self::init ();
-	    self::factory ($class);
-	}
-	
-	if ( ! array_key_exists ($alias, self::$instances)) {
-	    self::$instances[$alias] = &self::$instances[$class];
-	}
-    }
+		if (!array_key_exists ('Singleton', self::$instances)) {
 
-
-    /**
-     * Use like this:	$tmpl = S::Template();
-     *
-     * @param	string $className
-     * @param	mixed $arguments Class __construct arguments
-     * @return	object
-     * */
-    public static function __callStatic ($className, $arguments= array ()) {
-	
-	return self::factory ($className, $arguments);
-    }
-
-    public static function set ($object) {
-
-	if( ! is_object ($object)){
-	    return FALSE;
-	}
-	
-	$className = get_class($object);
-	
-	if ( ! array_key_exists ($className, self::$instances)) {
-	    self::init ();
-	    self::$instances[$className] = $object;
-	    return self::$instances[$className];
+			self::$instances['Singleton'] = new Singleton();
+		}
 	}
 
-	return FALSE;
-    }
+	public static function factory ($class = NULL, $arguments = array ()) {
 
-    public static function has ($name) {
+		self::init ();
 
-	if (array_key_exists ($name, self::$instances)) {
-	    return TRUE;
-	} else {
-	    return FALSE;
+		if (!array_key_exists ($class, self::$instances) && $class !== NULL) {
+			self::$instances[$class] = new $class (implode (', ', $arguments));
+		}
+
+		return self::$instances[$class];
 	}
-    }
 
-    public static function del ($class) {
+	public static function alias ($class, $alias) {
 
-	unset (self::$instances[$class]);
-    }
+		if (!array_key_exists ($class, self::$instances)) {
+			self::init ();
+			self::factory ($class);
+		}
 
-    public function getClasses () {
-	
-	$array = array ();
-	
-	foreach (array_keys (self::$instances, TRUE) as $class){
-	    $array[] = $class;
+		if (!array_key_exists ($alias, self::$instances)) {
+			self::$instances[$alias] = &self::$instances[$class];
+		}
 	}
-	
-	return $array;
-    }
 
-    protected function __clone () {
-	// Not cloning
-    }
+	/**
+	 * Use like this:	$tmpl = S::Template();
+	 *
+	 * @param	string $className
+	 * @param	mixed $arguments Class __construct arguments
+	 * @return	object
+	 * */
+	public static function __callStatic ($className, $arguments= array ()) {
 
-    public function __destruct () {
-	
-	foreach (array_keys (array_reverse (self::$instances, TRUE)) as $class) {
-	    unset (self::$instances[$class]);
+		return self::factory ($className, $arguments);
 	}
-    }
+
+	public static function set ($object, $alias = NULL) {
+
+		if (!is_object ($object)) {
+			return FALSE;
+		}
+
+		$className = get_class ($object);
+
+		if (!array_key_exists ($className, self::$instances)) {
+			self::init ();
+			self::$instances[$className] = $object;
+			if($alias) self::alias ($className, $alias);
+			return self::$instances[$className];
+		}
+
+		return FALSE;
+	}
+
+	public static function has ($name) {
+
+		if (array_key_exists ($name, self::$instances)) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
+
+	public static function del ($class) {
+
+		unset (self::$instances[$class]);
+	}
+
+	public function getClasses () {
+
+		$array = array ();
+
+		foreach (array_keys (self::$instances, TRUE) as $class) {
+			$array[] = $class;
+		}
+
+		return $array;
+	}
+
+	protected function __clone () {
+		// No cloning
+	}
+
+	public function __destruct () {
+
+		foreach (array_keys (array_reverse (self::$instances, TRUE)) as $class) {
+			unset (self::$instances[$class]);
+		}
+	}
 }
 
 ?>
