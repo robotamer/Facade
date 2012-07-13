@@ -25,7 +25,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN 
  * THE SOFTWARE. 
  */
-
+//namespace RoboTamer\Facade\Singleton;
 /**
  * The RoboTamer Master Singleton PHP Class
  *
@@ -68,7 +68,12 @@ class Singleton {
 
     public static function alias($class,$alias) {
 	
-	if (!array_key_exists ($alias, self::$instances) && array_key_exists ($class, self::$instances)) {
+	if ( ! array_key_exists ($class, self::$instances)){
+	    self::init ();
+	    self::factory ($class);
+	}
+	
+	if ( ! array_key_exists ($alias, self::$instances)) {
 	    self::$instances[$alias] = &self::$instances[$class];
 	}
     }
@@ -86,15 +91,18 @@ class Singleton {
 	return self::factory ($className, $arguments);
     }
 
-    public static function set ($name, $object) {
+    public static function set ($object) {
 
-	if (!array_key_exists ($name, self::$instances) && is_object ($object)) {
-
+	if( ! is_object ($object)){
+	    return FALSE;
+	}
+	
+	$className = get_class($object);
+	
+	if ( ! array_key_exists ($className, self::$instances)) {
 	    self::init ();
-
-	    self::$instances[$name] = $object;
-
-	    return self::$instances[$name];
+	    self::$instances[$className] = $object;
+	    return self::$instances[$className];
 	}
 
 	return FALSE;
